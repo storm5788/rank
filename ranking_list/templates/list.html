@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="{{ static('js/vue-2.5.16.js') }}"></script>
+    <script type="text/javascript" src="{{ static('js/axios-0.18.0.min.js') }}"></script>
+    <script type="text/javascript" src="{{ static('js/host.js') }}"></script>
+    <script type="text/javascript" src="../static/js/jquery-1.12.4.min.js"></script>
+    <style type="text/css">
+        tr td{
+            border:1px solid black;
+        }
+
+        table{
+              border:1px solid black;
+        }
+
+        form{
+            border: 1px solid black;
+
+        }
+        .error{
+            color: red;
+        }
+
+    </style>
+
+</head>
+<body>
+
+<html>
+<div id="app">
+<form  @submit="on_submit" method="post" v-cloak>
+    <text val="xx"></text>
+{{ csrf_input }}
+    请输入客户端号和分数 (范围:1-10000000):<br/>
+    客户端号:<input type="text" v-model="cid" @blur="check_cid" name="cid"><div  class="error" v-show="show_cid_error_message" >[[cid_error_message]]</div><br/>
+    分数:<input type="text" v-model="score" @blur="check_score" name="score"><div  class="error" v-show="show_score_error_message" >[[score_error_message]]</div><br/>
+
+    <input type="submit"  id="score" value="提交分数"><br/><br/>
+
+请输入排名范围:<input type="text" v-model="min" name="min">到<input type="text" v-model="max" name="max">
+<input type="button" @click="show" value="跟据范围显示排名"><br/>
+
+        <table v-show="show_rank" >
+
+            <tr>
+                <td>排名</td>
+                <td>客户端</td>
+                <td>编号</td>
+            </tr>
+
+            <tr v-for="rank in ranks" >
+                <td>[[ rank.no ]]</td>
+                <td>客户端[[ rank.cid ]]</td>
+                <td>[[ rank.score ]]</td>
+            </tr>
+
+
+
+        </table>
+
+</form>
+</div>
+
+</html>
+<script type="text/javascript" src="{{ static('js/common.js') }}"></script>
+<script type="text/javascript" src="{{ static('js/list.js') }}"></script>
+
+</body>
+
+
+</html>
